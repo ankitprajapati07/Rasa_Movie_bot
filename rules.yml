@@ -1,0 +1,40 @@
+version: "3.1"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: Activate when affirm intent
+  steps:
+    - intent: affirm
+    - action: utter_affirm
+
+- rule: Activate when deny intent
+  steps:
+    - intent: deny
+    - action: utter_goodbye
+
+- rule: Activate when movie genre is not provided
+  condition:
+  - slot_was_set:
+      - genre: false
+  steps:
+  - action: utter_ask_movie
+
+- rule: say welcome anytime user says thank you
+  steps:
+    - intent: gratitude
+    - action: utter_thanks
+
+- rule: provide movies list anytime user asks
+  steps:
+    - intent: inform_movie_genre
+    - action: action_list_movie
